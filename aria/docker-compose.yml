@@ -7,7 +7,7 @@ services:
     environment:
       - PUID=956000010
       - PGID=956000008
-      - UMASK_SET=022
+      - UMASK_SET=002
       - RPC_SECRET=Secret
       - RPC_PORT=6800
       - LISTEN_PORT=6888
