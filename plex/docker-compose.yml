@@ -1,0 +1,38 @@
+version: '2'
+services:
+  plex:
+    container_name: plex
+    image: plexinc/pms-docker
+    restart: unless-stopped
+    #user: "956000010:956000008"
+    environment:
+      - TZ=Europe/Paris
+      - PLEX_CLAIM=claim
+      - PLEX_UID=956000010
+      - PLEX_GID=956000008
+      - CHANGE_CONFIG_DIR_OWNERSHIP=false
+    networks:
+      macvlan:
+        ipv4_address: 10.0.3.1
+    hostname: plex.moot.ovh
+    volumes:
+      - /datas/appsNFS/plex/database:/config
+      - /datas/appsNFS/plex/transcode:/transcode
+      - /datas/Shares/Media:/media
+  kitana:
+    image: pannal/kitana:latest
+    container_name: kitana
+    user: "956000010:956000008"
+    volumes:
+      - /datas/appsNFS/kitana:/app/data
+    #ports:
+    #  - 31337:31337
+    networks:
+      macvlan:
+        ipv4_address: 10.0.3.3
+    command: -B 0.0.0.0:31337
+    restart: unless-stopped
+networks:
+  macvlan:
+    external:
+      name: macvlan
