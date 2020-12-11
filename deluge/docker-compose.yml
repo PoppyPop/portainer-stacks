@@ -1,0 +1,19 @@
+version: "2.1"
+services:
+  deluge:
+    image: ghcr.io/linuxserver/deluge
+    container_name: deluge
+    environment:
+      - PUID=956000010
+      - PGID=956000008
+      - TZ=Europe/Paris
+      - UMASK_SET=007 #optional
+      #- DELUGE_LOGLEVEL=error #optional
+    hostname: deluge.moot.ovh
+    networks:
+      macvlan:
+        ipv4_address: 10.0.3.4
+    volumes:
+      - /datas/appsNFS/deluge/config:/config
+      - /datas/appsNFS/deluge/downloads:/downloads
+    restart: unless-stopped
