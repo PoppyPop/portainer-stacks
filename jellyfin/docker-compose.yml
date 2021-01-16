@@ -10,8 +10,8 @@ services:
     volumes:
       - /datas/appsNFS/jellyfin/config:/config
       - jellyfin-cache:/cache
-      - /datas/appsNFS/aria2/aria2-downloads/Ended:/downloads
-      - /datas/Shares/Media:/media
+      - /datas:/downloads
+      - /datas:/media:ro
     networks:
       macvlan:
         ipv4_address: 10.0.3.2
